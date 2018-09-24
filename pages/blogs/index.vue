@@ -1,7 +1,44 @@
 <template>
   <div>
     <section class="">
-      欢迎来到前端ssr
+      <el-table
+        :data="dataSource"
+        style="width: 100%">
+        <el-table-column
+          fixed="left"
+          label="操作"
+          width="100">
+          <template slot-scope="scope">
+            <el-button @click="handleRead(scope.row)" type="text" size="small">查看</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="id"
+          label="id"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="title"
+          label="标题"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="content"
+          label="内容">
+        </el-table-column>
+      </el-table>
+      <div class="block">
+        <!--<span class="demonstration">博客列表</span>-->
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="$route.query.pageCurrent || pageCurrent"
+          :page-size="$route.query.pageSize || pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="dataSourceTotal">
+        </el-pagination>
+      </div>
     </section>
   </div>
 </template>
@@ -11,7 +48,7 @@ import AppLogo from '~/components/AppLogo.vue'
 import axios from 'axios';
 
 export default {
-  watchQuery: ['page'],
+//  watchQuery: ['page'],
   data(){
     return {
       pageCurrent: 1,
@@ -50,7 +87,7 @@ export default {
 //        pageSize: size,
 //      } })
       // this.apiBlogs();
-      window.location.href = `/?pageCurrent=${this.pageCurrent}&pageSize=${size}`
+      window.location.href = `/blogs/?pageCurrent=${this.pageCurrent}&pageSize=${size}`
     },
     handleCurrentChange(page) {
       this.pageCurrent = page;
@@ -59,14 +96,14 @@ export default {
 //        pageCurrent: page,
 //        pageSize: this.pageSize,
 //      } })
-      window.location.href = `/?pageCurrent=${page}&pageSize=${this.pageSize}`
+      window.location.href = `/blogs/?pageCurrent=${page}&pageSize=${this.pageSize}`
       // this.apiBlogs();
     },
-//    created () {
-//      if(this.$route.query.pageCurrent || this.$route.query.pageSize){
-//        this.asyncData();
-//      }
-//    },
+    handleRead(row) {
+      console.log('row', row)
+      // this.$router.push(`blogs/${row.id}`)
+      window.location.href = `/blogs/${row.id}`
+    }
   },
   mounted (){},
   asyncData (context, callback) {
