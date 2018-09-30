@@ -1,9 +1,7 @@
 <template>
   <div class="user">
-    <p>{{dataSource.id}}</p>
-    <p>{{dataSource.title}}</p>
-    <p>{{dataSource.content}}</p>
-    <p>{{dataSource.created_time}}</p>
+    <div class="title">{{dataSource.title}}</div>
+    <textarea id="MyID"></textarea>
   </div>
 </template>
 
@@ -24,14 +22,21 @@
       } catch (e) {
         error({ message: 'User not found', statusCode: 404 })
       }
-    }
+    },
+    mounted() {
+      var simplemde = new SimpleMDE({ element: document.getElementById("MyID") });
+      simplemde.value(this.dataSource.content);
+    },
   }
 </script>
 
 <style scoped>
   .user {
     text-align: center;
-    margin-top: 100px;
     font-family: sans-serif;
+  }
+  .user .title {
+    font-size: 18px;
+    line-height: 30px;
   }
 </style>

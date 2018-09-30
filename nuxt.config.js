@@ -20,9 +20,13 @@ module.exports = {
   plugins: [{
     src: '~plugins/ElementUI',
     ssr: true,
+  },{
+    src: '~plugins/simplemde.min.js',
+    ssr: false,
   }],
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'static/css/simplemde.min.css',
   ],
   /*
   ** Build configuration
