@@ -24,15 +24,24 @@
       }
     },
     mounted() {
-      var simplemde = new SimpleMDE({ element: document.getElementById("MyID") });
+      var simplemde = new SimpleMDE({
+        element: document.getElementById("MyID"),
+        // status: false,
+        // autoDownloadFontAwesome: false,
+        // tabSize: 4,
+//        renderingConfig: {
+//          codeSyntaxHighlighting: true
+//        },
+      });
+      // simplemde.toggleFullScreen();
       simplemde.value(this.dataSource.content);
+      simplemde.togglePreview();
     },
   }
 </script>
 
 <style scoped>
   .user {
-    text-align: center;
     font-family: sans-serif;
   }
   .user .title {
